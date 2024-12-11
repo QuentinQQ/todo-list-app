@@ -7,9 +7,19 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/Label';
+import { useRef } from 'react'
 
-const CreateTaskDialog = ({ isOpen, onClose, inputRef }) => {
+const CreateTaskDialog = ({ isOpen, onClose }) => {
+  const inputTitleRef = useRef(null);
+  const inputNotesRef = useRef(null);
+
+  const handleSave = () => {
+    const inputTitle = inputTitleRef.current.value;
+    const inputNotes = inputNotesRef.current.value; 
+    console.log(inputTitle, inputNotes);
+    onClose();
+  }
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px] flex max-w-md flex-col w-11/12 p=7 rounded-xl">
@@ -18,17 +28,14 @@ const CreateTaskDialog = ({ isOpen, onClose, inputRef }) => {
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
-            <Input id="taskName" placeholder="Add Title" className="col-span-3" ref={inputRef}/>
+            <Input id="taskTitle" placeholder="Add Title" className="col-span-4" ref={inputTitleRef}/>
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="taskDescription" className="text-right">
-              Description
-            </Label>
-            <Input id="taskDescription" placeholder="Enter task description" className="col-span-3" />
+            <Input id="taskNotes" placeholder="Enter task notes" className="col-span-4" ref={inputNotesRef}/>
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" className="ml-2">
+          <Button onClick={handleSave} className="ml-2">
             Save
           </Button>
         </DialogFooter>

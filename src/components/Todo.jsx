@@ -5,7 +5,6 @@ import CreateTaskDialog from './CreateTaskDialog';
 
 const Todo = () => {
   const [isDialogOpen, setDialogOpen] = useState(false);
-  const inputRef = useRef();
 
   const handleAddButtonClick = () => {
     setDialogOpen(true);
@@ -13,10 +12,6 @@ const Todo = () => {
 
   const handleCloseDialog = () => {
     setDialogOpen(false);
-  }
-
-  const submitAddTask = () => {
-	
   }
 
   return (
@@ -36,7 +31,7 @@ const Todo = () => {
           </Button>
         </div>
         {/* Create Dialog */}
-        <CreateTaskDialog isOpen={isDialogOpen} onClose={handleCloseDialog} inputRef={inputRef}/>
+        <CreateTaskDialog isOpen={isDialogOpen} onClose={handleCloseDialog} />
         {/* ToDo List */}
     </div> 
   )
