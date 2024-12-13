@@ -6,6 +6,7 @@ import TodoItems from './TodoItems';
 
 const Todo = () => {
   const [isDialogOpen, setDialogOpen] = useState(false);
+  const [todoLit, setTodoList] = useState([]);
 
   const handleAddButtonClick = () => {
     setDialogOpen(true);
@@ -32,11 +33,12 @@ const Todo = () => {
           </Button>
         </div>
         {/* Create Dialog */}
-        <CreateTaskDialog isOpen={isDialogOpen} onClose={handleCloseDialog} />
+        <CreateTaskDialog isOpen={isDialogOpen} onClose={handleCloseDialog} setTodoList={setTodoList} />
         {/* ToDo List */}
         <div>
-          <TodoItems />
-          <TodoItems />
+          {todoLit.map((item, index)=>{
+            return <TodoItems key={index} title={item.title} />
+          })}
         </div>
     </div> 
   )

@@ -8,20 +8,35 @@ import {
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { useRef, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid';
 
-const CreateTaskDialog = ({ isOpen, onClose }) => {
+const CreateTaskDialog = ({ isOpen, onClose, setTodoList}) => {
   const inputTitle = useRef(null);
   const inputNotes = useRef(null);
   const [titleError, setTitleError] = useState('');
   const [notesError, setNotesError] = useState('');
 
   const handleSave = () => {
-    const isTitleValid = validateTitle(inputTitle.current.value);
-    const isNotesValid = validateNotes(inputNotes.current.value);
+    const title = inputTitle.current.value;
+    const notes = inputNotes.current.value;
+    const isTitleValid = validateTitle(title);
+    const isNotesValid = validateNotes(notes);
+
     if (isTitleValid && isNotesValid) {
-      console.log(inputTitle.current.value, inputNotes.current.value);
+      const newTodo = {
+        id: uuidv4(),
+        title: title,
+        notes: notes,
+        isCompleted: false,
+        createAt: Date.now()
+      }
+      setTodoList((prev)=> [...prev, newTodo]);
+
+      // Reset the input fields
+      inputTitle.current.value = '';
+      inputNotes.current.value = '';
       onClose();
-    }else{
+    }else{ 
       console.log('Invalid');
       alert('Invalid');
     }
