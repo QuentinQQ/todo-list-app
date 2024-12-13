@@ -23,7 +23,7 @@ const TodoItems = ({title, id, isComplete, deleteTodo, setTodoList}) => {
           src={ isComplete ? tick : notTick }
           onClick={()=>{rotateIsComplete(id)}}
           alt="isComplete" 
-          className='w-7'
+          className='w-7 h-7'
         />
         <p className= {`text-slate-700 ml-4 text-[17px] decoration-slate-500 ${isComplete ? "line-through" : ""}`}>
           {title}
