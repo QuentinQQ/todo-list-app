@@ -1,15 +1,35 @@
 import React from 'react'
 import tick from '../assets/tick.png'
-import delete_icon from '../assets/delete.png'
+import notTick from '../assets/not_tick.png'
+import deleteIcon from '../assets/delete.png'
 
-const TodoItems = ({title}) => {
+const TodoItems = ({title, id, isComplete, deleteTodo, setTodoList}) => {
+  const rotateIsComplete = (id) => {
+    setTodoList(
+      (prevTodos)=>{
+        return prevTodos.map(
+          (todo)=>{if(todo.id === id){
+            return {...todo, isComplete: !todo.isComplete}
+          } return todo}
+        )
+      }
+    )
+  }
+
   return (
     <div className='flex items-center my-3 gap-2'>
-      <div className='flex flex-1 item-center cursor-pointer'>
-        <img src={tick} alt=""  className='w-7'/>
-        <p className='text-slate-700 ml-4 text-[17px]'>{title}</p>
+      <div className='flex flex-1 items-center cursor-pointer'>
+        <img
+          src={ isComplete ? tick : notTick }
+          onClick={()=>{rotateIsComplete(id)}}
+          alt="isComplete" 
+          className='w-7'
+        />
+        <p className= {`text-slate-700 ml-4 text-[17px] decoration-slate-500 ${isComplete ? "line-through" : ""}`}>
+          {title}
+        </p>
       </div>
-      <img src={delete_icon} alt="" className='w-3.5'/>
+      <img onClick={()=>{deleteTodo(id)}} src={deleteIcon} alt="" className='w-3.5'/>
     </div>
   )
 }
