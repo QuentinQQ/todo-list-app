@@ -50,6 +50,7 @@ const Todo = () => {
         <CreateTaskDialog isOpen={isDialogOpen} onClose={handleCloseDialog} setTodoList={setTodoList} />
         {/* ToDo List */}
         <div>
+          {/* todos */}
           {todoList.map((item, index)=>{
             return <TodoItems key={index} title={item.title} id={item.id} isComplete={item.isComplete} deleteTodo={deleteTodo} setTodoList={setTodoList} />
           })}
