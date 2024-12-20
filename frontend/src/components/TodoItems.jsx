@@ -9,7 +9,7 @@ const TodoItems = ({title, id, isComplete, deleteTodo, setTodoList}) => {
       (prevTodos)=>{
         return prevTodos.map(
           (todo)=>{if(todo.id === id){
-            return {...todo, isComplete: !todo.isComplete}
+            return {...todo, isComplete: !todo.isComplete, completedAt: todo.isComplete ? null : Date.now()}
           } return todo}
         )
       }
@@ -17,7 +17,6 @@ const TodoItems = ({title, id, isComplete, deleteTodo, setTodoList}) => {
   }
 
   return (
-    // Incomplete Todo Item
     <div className='flex items-center my-3 gap-2'>
       <div className='flex flex-1 items-center cursor-pointer'>
         <img
@@ -32,7 +31,6 @@ const TodoItems = ({title, id, isComplete, deleteTodo, setTodoList}) => {
       </div>
       <img onClick={()=>{deleteTodo(id)}} src={deleteIcon} alt="" className='w-3.5'/>
     </div>
-    // Complete Todo Item
   )
 }
 

@@ -28,7 +28,8 @@ const CreateTaskDialog = ({ isOpen, onClose, setTodoList}) => {
         title: title,
         notes: notes,
         isCompleted: false,
-        createAt: Date.now()
+        createAt: Date.now(),
+        completedAt: null,
       }
       setTodoList((prev)=> [...prev, newTodo]);
 

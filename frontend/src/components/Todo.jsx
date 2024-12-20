@@ -9,6 +9,7 @@ const Todo = () => {
   const [todoList, setTodoList] = useState(
     localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : []
   );
+  const [isCompletedPartOpen, setCompletedPartOpen] = useState(false);
 
   const handleAddButtonClick = () => {
     setDialogOpen(true);
@@ -29,6 +30,14 @@ const Todo = () => {
       localStorage.setItem('todos', JSON.stringify(todoList))
     }, [todoList]
   )
+
+  // Grouping the todos by isComplete
+  const completedTodos = todoList.filter((todo)=> todo.isComplete)
+  const incompleteTodos = todoList.filter((todo)=> !todo.isComplete)
+
+  // Sorting the todos by createAt from newest to oldest
+  incompleteTodos.sort((a, b) => b.createAt - a.createAt)
+  completedTodos.sort((a, b) => b.completedAt - a.completedAt)
 
   return (
     <div className='bg-white place-self-center w-11/12 max-w-md flex flex-col p-7 min-h-[550px] rounded-xl'>
@@ -51,9 +60,25 @@ const Todo = () => {
         {/* ToDo List */}
         <div>
           {/* todos */}
-          {todoList.map((item, index)=>{
+          {/* incompleted todos */}
+          {incompleteTodos.map((item, index)=>{
             return <TodoItems key={index} title={item.title} id={item.id} isComplete={item.isComplete} deleteTodo={deleteTodo} setTodoList={setTodoList} />
           })}
+          {/* completed todos */}
+          <div>
+            <div
+            className="cursor-pointer flex items-center mt-4"
+            onClick={()=>{setCompletedPartOpen(!isCompletedPartOpen)}}
+            >
+              <span className="font-semibold text-lg">Completed</span>
+              <span className="ml-2 text-sm">({completedTodos.length})</span>
+              <span className="ml-auto">{isCompletedPartOpen ? '▼' : '▲'}</span>          
+            </div>
+            {isCompletedPartOpen && completedTodos.map((item, index)=>{
+              return <TodoItems key={index} title={item.title} id={item.id} isComplete={item.isComplete} deleteTodo={deleteTodo} setTodoList={setTodoList} />
+            })}
+          </div>
+
         </div>
     </div> 
   )
