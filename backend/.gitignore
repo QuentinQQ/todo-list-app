@@ -4,3 +4,5 @@ firebase-service-account.json
 
 # Editor directories and files
 .vscode/*
+
+node_modules
