@@ -1,3 +1,6 @@
 # backend env
 .env
 firebase-service-account.json
+
+# Editor directories and files
+.vscode/*
