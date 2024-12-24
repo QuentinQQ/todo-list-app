@@ -24,7 +24,7 @@ const CreateTaskDialog = ({ isOpen, onClose, setTodoList}) => {
 
     if (isTitleValid && isNotesValid) {
       const newTodo = {
-        id: uuidv4(),
+        id: uuidv4(), // Todo: Use backend generated ID
         title: title,
         notes: notes,
         isCompleted: false,
